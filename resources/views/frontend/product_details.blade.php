@@ -21,7 +21,7 @@
         if($qty > 0){
             $availability = "in stock";
         }
-    @endphp
+    @endphp 
 
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="{{ $detailedProduct->meta_title }}">
