@@ -47,8 +47,15 @@ class HomeController extends Controller
         $featured_categories = Cache::rememberForever('featured_categories', function () {
             return Category::with('bannerImage')->where('featured', 1)->get();
         });
-
+      
         return view('frontend.' . get_setting('homepage_select') . '.index', compact('featured_categories', 'lang'));
+    }
+
+    public function home(Request $request){
+        $lang = get_system_language() ? get_system_language()->code : null;
+        get_setting('homepage_select_new');
+        return view('frontend.' . get_setting('homepage_select_new') . '.new_home' , compact('lang'));
+
     }
 
     public function load_todays_deal_section()

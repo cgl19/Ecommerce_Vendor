@@ -1,4 +1,5 @@
 <!-- Last Viewed Products  -->
+  @if(!url('/home'))
 @if(get_setting('last_viewed_product_activation') == 1 && Auth::check() && auth()->user()->user_type == 'customer')
 <div class="border-top" id="section_last_viewed_products" style="background-color: #fcfcfc;">
     @php
@@ -22,17 +23,20 @@
                 <!-- Product Section -->
                 <div class="px-sm-3">
                     <div class="aiz-carousel slick-left sm-gutters-16 arrow-none" data-items="6" data-xl-items="5" data-lg-items="4"  data-md-items="3" data-sm-items="2" data-xs-items="2" data-arrows='true' data-infinite='false'>
+                     
                         @foreach ($lastViewedProducts as $key => $lastViewedProduct)
                             <div class="carousel-box px-3 position-relative has-transition hov-animate-outline border-right border-top border-bottom @if($key == 0) border-left @endif">
                                 @include('frontend.'.get_setting('homepage_select').'.partials.product_box_1',['product' => $lastViewedProduct->product])
                             </div>
                         @endforeach
+                        
                     </div>
                 </div>
             </div>
         </section>
     @endif
 </div>
+@endif
 @endif
 
 <!-- footer Description -->

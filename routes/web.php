@@ -106,6 +106,7 @@ Route::controller(VerificationController::class)->group(function () {
     Route::get('/verification-confirmation/{code}', 'verification_confirmation')->name('email.verification.confirmation');
 });
 
+
 Route::controller(HomeController::class)->group(function () {
     Route::get('/email-change/callback', 'email_change_callback')->name('email_change.callback');
     Route::post('/password/reset/email/submit', 'reset_password_with_code')->name('password.update');
@@ -117,7 +118,9 @@ Route::controller(HomeController::class)->group(function () {
     Route::post('/users/login/cart', 'cart_login')->name('cart.login.submit')->middleware('handle-demo-login');
     Route::post('/import-data', 'import_data');
     //Home Page
+  
     Route::get('/', 'index')->name('home');
+    Route::get('/home', 'home')->name('home-new');
     // Route::get('/', 'index')->name('home')->middleware(['user', 'verified', 'unbanned']);
 
     Route::post('/home/section/featured', 'load_featured_section')->name('home.section.featured');

@@ -16,10 +16,9 @@
                     $admin_user_id = App\Models\User::where('user_type', 'admin')->first()->id;
                 @endphp
                 @if ($order->seller_id == $admin_user_id || get_setting('product_manage_by_admin') == 1)
-
-                    <!--Assign Delivery Boy-->
+                    <!--Assign Delivery Boy--> 
                     @if (addon_is_activated('delivery_boy'))
-                        <div class="col-md-3 ml-auto">
+                        <div class="col-md-3 ml-auto">  
                             <label for="assign_deliver_boy">{{ translate('Assign Deliver Boy') }}</label>
                             @if (($delivery_status == 'pending' || $delivery_status == 'confirmed' || $delivery_status == 'picked_up') && auth()->user()->can('assign_delivery_boy_for_orders'))
                                 <select class="form-control aiz-selectpicker" data-live-search="true"

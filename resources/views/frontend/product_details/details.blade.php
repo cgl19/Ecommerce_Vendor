@@ -26,6 +26,7 @@
                 <span class="fw-500">{{ $detailedProduct->est_shipping_days }} {{ translate('Days') }}</span>
             </div>
         @endif
+        
         <!-- In stock -->
         @if ($detailedProduct->digital == 1)
             <div class="col-12 mt-1">

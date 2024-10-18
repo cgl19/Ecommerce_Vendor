@@ -27,7 +27,6 @@
     <meta itemprop="name" content="{{ $detailedProduct->meta_title }}">
     <meta itemprop="description" content="{{ $detailedProduct->meta_description }}">
     <meta itemprop="image" content="{{ uploaded_asset($detailedProduct->meta_img) }}">
-
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="product">
     <meta name="twitter:site" content="@publisher_handle">
@@ -97,9 +96,9 @@
 
                     <!-- Right side -->
                     <div class="col-lg-12">
-                           <div class="d-none d-lg-block">
+                           {{-- <div class="d-none d-lg-block">
                             @include('frontend.product_details.top_selling_products')
-                       </div>
+                       </div> --}}
                         <!-- Reviews & Ratings -->
                         {{-- @include('frontend.product_details.review_section') --}}
 
@@ -113,9 +112,9 @@
                         @include('frontend.product_details.product_queries')
                         
                         <!-- Top Selling Products -->
-                        <div class="d-lg-none">
+                        {{-- <div class="d-lg-none">
                              @include('frontend.product_details.top_selling_products')
-                        </div>
+                        </div> --}}
 
                     </div>
                 </div>
@@ -227,7 +226,7 @@
 
             </div>
         </div>
-    </div>
+    </div> 
 
     <!-- Size chart show Modal -->
     @include('modals.size_chart_show_modal')

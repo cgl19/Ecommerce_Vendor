@@ -16,8 +16,8 @@
 
     <!-- Favicon -->
     <link rel="icon" href="{{ uploaded_asset(get_setting('site_icon')) }}">
-    <link rel="apple-touch-icon" href="{{ uploaded_asset(get_setting('site_icon')) }}">
-    <title>{{ get_setting('website_name') . ' | ' . get_setting('site_motto') }}</title>
+    <link rel="apple-touch-icon" href="{{ uploaded_asset(get_setting('site_icon')) }}"> 
+    <title>{{ get_setting('website_name') . ' | ' . get_setting('site_motto') }}</title>    
 
     <!-- google font -->
     {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"> --}}
@@ -64,13 +64,7 @@
             font-size: 12px;
             font-family: 'Public Sans', sans-serif;
         }
-        /* .bootstrap-select .btn,
-        .btn:not(.btn-circle),
-        .form-control,
-        .input-group-text,
-        .custom-file-label, .custom-file-label::after {
-            border-radius: 0;
-        } */
+       
         .border-gray {
             border-color: #e4e5eb !important;
         }

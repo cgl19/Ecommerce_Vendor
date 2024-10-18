@@ -402,7 +402,7 @@
           attribution=setup_tool
           page_id="{{ env('FACEBOOK_PAGE_ID') }}">
         </div>
-    @endif
+    @endif 
 
     <script>
         @foreach (session('flash_notification', collect())->toArray() as $message)
@@ -416,9 +416,9 @@
             $.post('{{ route('home.section.featured') }}', {
                 _token: '{{ csrf_token() }}'
             }, function(data) {
-                $('#section_featured').html(data);
+                $('#section_featured').html(data);   
                 AIZ.plugins.slickCarousel();
-            });
+            });     
 
             $.post('{{ route('home.section.todays_deal') }}', {
                 _token: '{{ csrf_token() }}'
@@ -446,7 +446,7 @@
             }, function(data) {
                 $('#auction_products').html(data);
                 AIZ.plugins.slickCarousel();
-            });
+            });   
 
             $.post('{{ route('home.section.home_categories') }}', {
                 _token: '{{ csrf_token() }}'
@@ -455,7 +455,7 @@
                 AIZ.plugins.slickCarousel();
             });
 
-        @endif
+        @endif  
 
         $(document).ready(function() {
             $('.category-nav-element').each(function(i, el) {
