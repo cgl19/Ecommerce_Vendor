@@ -56,16 +56,16 @@ use App\Models\LastViewedProduct;
 use App\Models\PaymentMethod;
 use App\Models\UserCoupon;
 use App\Models\NotificationType;
-
-//sensSMS function for OTP
-if (!function_exists('sendSMS')) {
+ 
+//sensSMS function for OTP 
+if (!function_exists('sendSMS')) { 
     function sendSMS($to, $from, $text, $template_id)
     {
         return SendSMSUtility::sendSMS($to, $from, $text, $template_id);
     }
-}
+} 
 
-//highlights the selected navigation on admin panel
+//highlights the selected navigation on admin panel 
 if (!function_exists('areActiveRoutes')) {
     function areActiveRoutes(array $routes, $output = "active")
     {
@@ -73,7 +73,7 @@ if (!function_exists('areActiveRoutes')) {
             if (Route::currentRouteName() == $route && (url()->current() != url('/admin/website/custom-pages/edit/home'))) return $output;
         }
     }
-}
+} 
 
 //highlights the selected navigation on frontend
 if (!function_exists('areActiveRoutesHome')) {
@@ -83,7 +83,7 @@ if (!function_exists('areActiveRoutesHome')) {
             if (Route::currentRouteName() == $route) return $output;
         }
     }
-}
+} 
 
 //highlights the selected navigation on frontend
 if (!function_exists('default_language')) {
@@ -91,7 +91,7 @@ if (!function_exists('default_language')) {
     {
         return env("DEFAULT_LANGUAGE");
     }
-}
+} 
 
 /**
  * Save JSON File

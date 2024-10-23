@@ -18,7 +18,7 @@
                 @if ($order->seller_id == $admin_user_id || get_setting('product_manage_by_admin') == 1)
                     <!--Assign Delivery Boy--> 
                     @if (addon_is_activated('delivery_boy'))
-                        <div class="col-md-3 ml-auto">  
+                        <div class="col-md-3 ml-auto">
                             <label for="assign_deliver_boy">{{ translate('Assign Deliver Boy') }}</label>
                             @if (($delivery_status == 'pending' || $delivery_status == 'confirmed' || $delivery_status == 'picked_up') && auth()->user()->can('assign_delivery_boy_for_orders'))
                                 <select class="form-control aiz-selectpicker" data-live-search="true"
@@ -29,9 +29,9 @@
                                             @if ($order->assign_delivery_boy == $delivery_boy->id) selected @endif>
                                             {{ $delivery_boy->name }}
                                         </option>
-                                    @endforeach
+                                    @endforeach   
                                 </select>
-                            @else
+                            @else  
                                 <input type="text" class="form-control" value="{{ optional($order->delivery_boy)->name }}"
                                     disabled>
                             @endif
@@ -92,11 +92,11 @@
                 @endif
             </div>
             <div class="mb-3">
-                @php
+                @php 
                     $removedXML = '<?xml version="1.0" encoding="UTF-8"?>';
                 @endphp
                 {!! str_replace($removedXML, '', QrCode::size(100)->generate($order->code)) !!}
-            </div>
+            </div>  
             <div class="row gutters-5">
                 <div class="col text-md-left text-center">
                     @if(json_decode($order->shipping_address))

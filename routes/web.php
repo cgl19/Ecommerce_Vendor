@@ -120,7 +120,7 @@ Route::controller(HomeController::class)->group(function () {
     //Home Page
   
     Route::get('/', 'index')->name('home');
-    Route::get('/home', 'home')->name('home-new');
+    Route::get('/home', 'home')->name('home-new');  
     // Route::get('/', 'index')->name('home')->middleware(['user', 'verified', 'unbanned']);
 
     Route::post('/home/section/featured', 'load_featured_section')->name('home.section.featured');
@@ -140,18 +140,18 @@ Route::controller(HomeController::class)->group(function () {
     //Todays Deal Details Page
     Route::get('/todays-deal', 'todays_deal')->name('todays-deal');
 
-    Route::get('/product/{slug}', 'product')->name('product')->middleware(['user', 'verified', 'unbanned']);
-    Route::post('/product/variant-price', 'variant_price')->name('products.variant_price')->middleware(['user', 'verified', 'unbanned']);
-    Route::get('/shop/{slug}', 'shop')->name('shop.visit')->middleware(['user', 'verified', 'unbanned']);
-    Route::get('/shop/{slug}/{type}', 'filter_shop')->name('shop.visit.type')->middleware(['user', 'verified', 'unbanned']);
+    Route::get('/product/{slug}', 'product')->name('product');
+    Route::post('/product/variant-price', 'variant_price')->name('products.variant_price');
+    Route::get('/shop/{slug}', 'shop')->name('shop.visit');
+    Route::get('/shop/{slug}/{type}', 'filter_shop')->name('shop.visit.type');
 
-    Route::get('/customer-packages', 'premium_package_index')->name('customer_packages_list_show')->middleware(['user', 'verified', 'unbanned']);
+    Route::get('/customer-packages', 'premium_package_index')->name('customer_packages_list_show');
 
-    Route::get('/brands', 'all_brands')->name('brands.all')->middleware(['user', 'verified', 'unbanned']);
-    Route::get('/categories', 'all_categories')->name('categories.all')->middleware(['user', 'verified', 'unbanned']);
-    Route::get('/sellers', 'all_seller')->name('sellers')->middleware(['user', 'verified', 'unbanned']);
-    Route::get('/coupons', 'all_coupons')->name('coupons.all')->middleware(['user', 'verified', 'unbanned']);
-    Route::get('/inhouse', 'inhouse_products')->name('inhouse.all')->middleware(['user', 'verified', 'unbanned']);
+    Route::get('/brands', 'all_brands')->name('brands.all');
+    Route::get('/categories', 'all_categories')->name('categories.all');
+    Route::get('/sellers', 'all_seller')->name('sellers');
+    Route::get('/coupons', 'all_coupons')->name('coupons.all');
+    Route::get('/inhouse', 'inhouse_products')->name('inhouse.all');
 
 
     // Policies
@@ -191,7 +191,7 @@ Route::controller(CustomerProductController::class)->group(function () {
 });
 
 // Search
-Route::controller(SearchController::class)->middleware(['user', 'verified', 'unbanned'])->group(function () {
+Route::controller(SearchController::class)->group(function () {
     Route::get('/search', 'index')->name('search');
     Route::get('/search?keyword={search}', 'index')->name('suggestion.search');
     Route::post('/ajax-search', 'ajax_search')->name('search.ajax');
@@ -200,7 +200,7 @@ Route::controller(SearchController::class)->middleware(['user', 'verified', 'unb
 });
 
 // Cart
-Route::controller(CartController::class)->middleware(['user', 'verified', 'unbanned'])->group(function () {
+Route::controller(CartController::class)->group(function () {
     Route::get('/cart', 'index')->name('cart');
     Route::post('/cart/show-cart-modal', 'showCartModal')->name('cart.showCartModal');
     Route::post('/cart/addtocart', 'addToCart')->name('cart.addToCart');
