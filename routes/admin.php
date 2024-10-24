@@ -53,6 +53,7 @@ use App\Http\Controllers\TaxController;
 use App\Http\Controllers\UpdateController;
 use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\ZoneController;
+use App\Http\Controllers\UserPriceSettingsController;
 
 /*
   |--------------------------------------------------------------------------
@@ -74,6 +75,7 @@ Route::controller(UpdateController::class)->group(function () {
 });
 
 Route::get('/admin', [AdminController::class, 'admin_dashboard'])->name('admin.dashboard')->middleware(['auth', 'admin', 'prevent-back-history']);
+Route::get('/price_player', [AdminController::class, 'admin_price_player'])->name('admin.price_player')->middleware(['auth', 'admin', 'prevent-back-history']);
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'prevent-back-history']], function () {
 
     // category
@@ -272,6 +274,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'prevent-ba
         // Order Configuration
         Route::get('/order-configuration', 'order_configuration')->name('order_configuration.index');
     });
+    Route::controller(UserPriceSettingsController::class)->group(function () {
+        
+        Route::post('/user-price-settings/update', 'updateUserPriceSettings')->name('user_price_settings.update');
+        Route::get('/user-price-settings/delete/{id}','deleteUserPriceSettings')
+        ->name('user_price_settings.delete');    
+    });
+
 
 
     //Currency

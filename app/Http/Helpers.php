@@ -56,6 +56,7 @@ use App\Models\LastViewedProduct;
 use App\Models\PaymentMethod;
 use App\Models\UserCoupon;
 use App\Models\NotificationType;
+use App\Models\userPrice;
  
 //sensSMS function for OTP 
 if (!function_exists('sendSMS')) { 
@@ -721,6 +722,7 @@ if (!function_exists('home_discounted_base_price_by_stock_id')) {
             }
         }
         $price += $tax;
+        
 
         return format_price(convert_price($price));
     }
@@ -760,12 +762,61 @@ if (!function_exists('home_discounted_base_price')) {
                 $tax += $product_tax->tax;
             }
         }
+
         $price += $tax;
-
-
+        $price=(int)$price;
+        $price=userPrice(Auth::id(),$price);
         return $formatted ? format_price(convert_price($price)) : convert_price($price);
     }
 }
+
+if (!function_exists('userPrice')) {
+    function userPrice($user_id = null, $price)
+    {
+        // If $user_id is null, default to the authenticated user's ID
+        $user_id = $user_id ?? Auth::id();
+        
+        // If no user ID is provided or the price is null, return the original price
+        if ($user_id === null || $price === null) {
+            return $price;
+        }
+
+        // Retrieve the user's price settings
+        $userPrice = UserPrice::where('user_id', $user_id)->first();
+        
+        // If a user-specific price exists and is not null or 0, calculate the adjusted price
+        if ($userPrice && ($userPrice->price !== null && $userPrice->price != 0)) {
+            $newPrice = calculateUserPrice($price, $userPrice->price, $userPrice->type);
+            return $newPrice;
+        }
+        
+        // If no adjustments, return the original price
+        return $price;
+    }
+}
+
+if (!function_exists('calculateUserPrice')) {
+    function calculateUserPrice($price, $newQuote, $type)
+    {
+        $price = (float)$price;
+        $newQuote = (float)$newQuote;
+
+        // Perform calculations based on the type
+        switch ($type) {
+            case "Multiply":
+                return $price * $newQuote;
+            case "Add":
+                return $price + $newQuote;
+            case "Percentage":
+                return $price + ($price * ($newQuote / 100));
+            default:
+                // Return original price if type is not recognized
+                return $price;
+        }
+    }
+}
+
+
 
 if (!function_exists('renderStarRating')) {
     function renderStarRating($rating, $maxRating = 5)

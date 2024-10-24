@@ -155,6 +155,14 @@ class AdminController extends Controller
         return view('backend.dashboard', $data);
     }
 
+
+    public function admin_price_player(Request $request){
+       $data=[];
+       $users=User::where('user_type',"customer")->with('user_price')->get();
+        return view('backend.price_player', ['users'=>$users]); 
+
+    }
+
     public function top_category_products_section(Request $request)
     {
         $top_categories_products = DB::table(DB::raw('(SELECT products.id product_id, products.name product_name, products.slug product_slug, products.auction_product, products.category_id,
