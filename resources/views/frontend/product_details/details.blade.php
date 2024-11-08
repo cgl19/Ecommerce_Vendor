@@ -247,7 +247,7 @@
                             @if (discount_in_percentage($detailedProduct) > 0)
                                 <span class="bg-primary ml-2 fs-11 fw-700 text-white w-35px text-center p-1"
                                     style="padding-top:2px;padding-bottom:2px;">-{{ discount_in_percentage($detailedProduct) }}%</span>
-                            @endif
+                            @endif 
                             <!-- Club Point -->
                             @if (addon_is_activated('club_point') && $detailedProduct->earn_point > 0)
                                 <div class="ml-2 bg-secondary-base d-flex justify-content-center align-items-center px-3 py-1"
@@ -273,13 +273,43 @@
                                         </g>
                                     </svg>
                                     <small class="fs-11 fw-500 text-white ml-2">{{ translate('Club Point') }}:
-                                        {{ $detailedProduct->earn_point }}</small>
+                                        {{ $detailedProduct->earn_point }}
+                                    </small>
                                 </div>
-                            @endif
+                            @endif   
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
             @else
+            @if(Auth::check())
                 <div class="row no-gutters mb-3">
                     <div class="col-sm-2">
                         <div class="text-secondary fs-14 fw-400">{{ translate('Price') }}</div>
@@ -325,6 +355,7 @@
                         </div>
                     </div>
                 </div>
+            @endif
             @endif
         @endif
     @endif
@@ -390,6 +421,7 @@
                 @endif
 
                 <!-- Quantity + Add to cart -->
+                @if(Auth::check())
                 <div class="row no-gutters mb-3">
                     <div class="col-sm-2">
                         <div class="text-secondary fs-14 fw-400 mt-2">{{ translate('Quantity') }}</div>
@@ -427,6 +459,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             @else
                 <!-- Quantity -->
                 <input type="hidden" name="quantity" value="1">
@@ -475,6 +508,7 @@
         @endif
     @else
         <!-- Add to cart & Buy now Buttons -->
+        @if(Auth::check())
         <div class="mt-3">
             @if ($detailedProduct->digital == 0)
                 @if (((get_setting('product_external_link_for_seller') == 1) && ($detailedProduct->added_by == "seller") && ($detailedProduct->external_link != null)) ||
@@ -509,6 +543,7 @@
                 </button>
             @endif
         </div>
+        @endif
 
         <!-- Promote Link -->
         <div class="d-table width-100 mt-3">

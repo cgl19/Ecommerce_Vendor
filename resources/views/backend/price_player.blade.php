@@ -77,7 +77,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> 
                     
                             <!-- Price Input Field -->
                             <div class="col-3">

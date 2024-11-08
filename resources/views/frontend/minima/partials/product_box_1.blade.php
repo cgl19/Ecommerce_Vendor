@@ -56,6 +56,7 @@
                 </a>
             </div>
             <!-- add to cart -->
+            @if(Auth::check())
             <a class="cart-btn absolute-bottom-left w-100 h-35px aiz-p-hov-icon text-white fs-13 fw-700 d-flex flex-column justify-content-center align-items-center @if (in_array($product->id, $cart_added)) active @endif"
                 href="javascript:void(0)"
                 onclick="showAddToCartModal({{ $product->id }})">
@@ -64,6 +65,7 @@
                 </span>
                 <span><i class="las la-2x la-shopping-cart"></i></span>
             </a>
+            @endif
         @endif
         @if (
             $product->auction_product == 1 &&
@@ -93,6 +95,7 @@
                 title="{{ $product->getTranslation('name') }}">{{ $product->getTranslation('name') }}</a>
         </h3>
         <div class="fs-14 d-flex justify-content-center mt-3">
+            @if(Auth::check())
             @if ($product->auction_product == 0)
                 <!-- Previous price -->
                 @if (home_base_price($product) != home_discounted_base_price($product))
@@ -110,6 +113,7 @@
                 <div class="">
                     <span class="fw-700 text-primary">{{ single_price($product->starting_bid) }}</span>
                 </div>
+            @endif
             @endif
         </div>
     </div>

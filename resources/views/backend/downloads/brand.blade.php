@@ -19,7 +19,7 @@
 	.gry-color *,
 	.gry-color{
 		color:#878f9c;
-	}
+	}  
 	table{
 		width: 100%;
 	}
@@ -51,11 +51,11 @@
 	.strong{
 		font-weight: bold;
 	}
-</style>
+</style> 
 
 	@php
 		$logo = get_setting('header_logo');
-	@endphp
+	@endphp 
 
 	<div style="background: #eceff4;padding: 1.5rem;">
 		<table>
@@ -69,12 +69,10 @@
 				</td>
 			</tr>
 		</table>
-
-	</div>
-
+	</div>  
+    
 	<div style="border-bottom:1px solid #eceff4;margin: 0 1.5rem;"></div>
-
-    <div style="padding: 1.5rem;">
+     <div style="padding: 1.5rem;">
 		<table class="padding text-left small border-bottom">
 			<thead>
                 <tr class="gry-color" style="background: #eceff4;">
@@ -92,5 +90,4 @@
             </tbody>
 		</table>
 	</div>
-
 </div>

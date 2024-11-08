@@ -379,7 +379,7 @@ if (!function_exists('cart_product_tax')) {
         }
 
         if ($formatted) {
-            return format_price(convert_price($tax));
+            return format_price(convert_price());
         } else {
             return $tax;
         }
@@ -729,6 +729,9 @@ if (!function_exists('home_discounted_base_price_by_stock_id')) {
 }
 
 
+
+
+
 //Shows Base Price with discount
 if (!function_exists('home_discounted_base_price')) {
     function home_discounted_base_price($product, $formatted = true)
@@ -774,13 +777,12 @@ if (!function_exists('userPrice')) {
     function userPrice($user_id = null, $price)
     {
         // If $user_id is null, default to the authenticated user's ID
+        if(Auth::check()){
         $user_id = $user_id ?? Auth::id();
-        
         // If no user ID is provided or the price is null, return the original price
         if ($user_id === null || $price === null) {
             return $price;
         }
-
         // Retrieve the user's price settings
         $userPrice = UserPrice::where('user_id', $user_id)->first();
         
@@ -793,6 +795,8 @@ if (!function_exists('userPrice')) {
         // If no adjustments, return the original price
         return $price;
     }
+    return $price;
+}
 }
 
 if (!function_exists('calculateUserPrice')) {
@@ -811,7 +815,7 @@ if (!function_exists('calculateUserPrice')) {
                 return $price + ($price * ($newQuote / 100));
             default:
                 // Return original price if type is not recognized
-                return $price;
+            return $price;
         }
     }
 }

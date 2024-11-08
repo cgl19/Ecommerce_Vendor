@@ -63,7 +63,8 @@ class CartController extends Controller
             $user_id = $authUser->id;
             $data['user_id'] = $user_id;
             $carts = Cart::where('user_id', $user_id)->get();
-        } else {
+        } 
+        else {
             if($request->session()->get('temp_user_id')) {
                 $temp_user_id = $request->session()->get('temp_user_id');
             } else {
@@ -109,7 +110,8 @@ class CartController extends Controller
                 'user_id' => $user_id,
                 'product_id' => $request['id']
             ]);
-        } else {
+        } 
+        else {
             $temp_user_id = $request->session()->get('temp_user_id');
             $cart = Cart::firstOrNew([
                 'variation' => $str,
@@ -140,6 +142,7 @@ class CartController extends Controller
 
         $price = CartUtility::get_price($product, $product_stock, $request->quantity);
         $tax = CartUtility::tax_calculation($product, $price);
+      
 
         CartUtility::save_cart_data($cart, $product, $price, $tax, $quantity);
 
