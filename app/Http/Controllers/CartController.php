@@ -40,6 +40,7 @@ class CartController extends Controller
             $carts->toQuery()->update(['shipping_cost' => 0]);
             $carts = $carts->fresh();
         }
+       // dd($carts);
 
         return view('frontend.view_cart', compact('carts'));
     }

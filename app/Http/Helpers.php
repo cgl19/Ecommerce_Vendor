@@ -185,7 +185,7 @@ if (!function_exists('get_system_default_currency')) {
 
 //converts currency to home default currency
 if (!function_exists('convert_price')) {
-    function convert_price($price)
+    function convert_price($price=null)
     {
         if (Session::has('currency_code') && (Session::get('currency_code') != get_system_default_currency()->code)) {
             $price = floatval($price) / floatval(get_system_default_currency()->exchange_rate);
@@ -313,7 +313,8 @@ if (!function_exists('cart_product_price')) {
                     $price -= $product->discount;
                 }
             }
-        } else {
+        } 
+        else {
             $price = $product->bids->max('amount');
         }
 
@@ -331,9 +332,9 @@ if (!function_exists('cart_product_price')) {
         }
 
         if ($formatted) {
-            return format_price(convert_price($price));
+            return format_price(convert_price(userPrice($price)));
         } else {
-            return $price;
+            return userPrice($price);
         }
     }
 }
@@ -637,9 +638,9 @@ if (!function_exists('home_discounted_price')) {
 
         if ($formatted) {
             if ($lowest_price == $highest_price) {
-                return format_price(convert_price($lowest_price));
+                return format_price(convert_price(userPrice($lowest_price)));
             } else {
-                return format_price(convert_price($lowest_price)) . ' - ' . format_price(convert_price($highest_price));
+                return format_price(convert_price(userPrice($lowest_price))) . ' - ' . format_price(convert_price(userPrice($highest_price)));
             }
         } else {
             return $lowest_price . ' - ' . $highest_price;
@@ -768,13 +769,13 @@ if (!function_exists('home_discounted_base_price')) {
 
         $price += $tax;
         $price=(int)$price;
-        $price=userPrice(Auth::id(),$price);
+        $price=userPrice($price);
         return $formatted ? format_price(convert_price($price)) : convert_price($price);
     }
 }
 
 if (!function_exists('userPrice')) {
-    function userPrice($user_id = null, $price)
+    function userPrice($price)
     {
         // If $user_id is null, default to the authenticated user's ID
         if(Auth::check()){

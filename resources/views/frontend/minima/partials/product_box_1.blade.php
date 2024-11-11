@@ -72,7 +72,7 @@
                 $product->auction_start_date <= strtotime('now') &&
                 $product->auction_end_date >= strtotime('now'))
             <!-- Place Bid -->
-            @php
+            @php 
                 $carts = get_user_cart();
                 if (count($carts) > 0) {
                     $cart_added = $carts->pluck('product_id')->toArray();
@@ -85,7 +85,7 @@
                 <span class="cart-btn-text">{{ translate('Place Bid') }}</span>
                 <span><i class="las la-2x la-gavel"></i></span>
             </a>
-        @endif
+        @endif 
     </div>
 
     <div class="p-2 p-md-3 text-left">
@@ -114,7 +114,14 @@
                     <span class="fw-700 text-primary">{{ single_price($product->starting_bid) }}</span>
                 </div>
             @endif
+            @else
+                <!-- price -->
+               <div>
+                <button class="btn">
+                    <a href="{{url('/login')}}" class="btn btn-primary btn-block fs-12 fw-600 mb-2 mb-md-0" style="border-radius: 25px;">Login to view prices</a>
+                </button>
+               </div>
             @endif
-        </div>
+        </div> 
     </div>
-</div>
+</div>  

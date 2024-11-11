@@ -224,7 +224,9 @@
             </table>
         @else
             <!-- Without Wholesale -->
+          
             @if (home_price($detailedProduct) != home_discounted_price($detailedProduct))
+                @if(Auth::check())
                 <div class="row no-gutters mb-3">
                     <div class="col-sm-2">
                         <div class="text-secondary fs-14 fw-400">{{ translate('Price') }}</div>
@@ -280,35 +282,33 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
+                @endif
+        
             @else
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             @if(Auth::check())
                 <div class="row no-gutters mb-3">
                     <div class="col-sm-2">
@@ -465,10 +465,26 @@
                 <input type="hidden" name="quantity" value="1">
             @endif
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <!-- Total Price -->
-            <div class="row no-gutters pb-3 d-none" id="chosen_price_div">
+            {{-- <div class="row no-gutters pb-3 d-none" id="chosen_price_div">
                 <div class="col-sm-2">
-                    <div class="text-secondary fs-14 fw-400 mt-1">{{ translate('Total Price') }}</div>
+                    <div class="text-secondary fs-14 fw-400 mt-1">{{ translate('Total Pricex') }}</div>
                 </div>
                 <div class="col-sm-10">
                     <div class="product-price">
@@ -477,7 +493,7 @@
                         </strong>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
         </form>
     @endif
