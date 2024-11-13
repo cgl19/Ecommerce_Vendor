@@ -3,7 +3,6 @@
 .env.*.php
 .env.php
 /node_modules
-/public/assets
 /public/storage
 /public/uploads
 /storage/*.key
