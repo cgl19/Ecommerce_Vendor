@@ -85,7 +85,7 @@
                 <span class="cart-btn-text">{{ translate('Place Bid') }}</span>
                 <span><i class="las la-2x la-gavel"></i></span>
             </a>
-        @endif 
+        @endif  
     </div>
 
     <div class="p-2 p-md-3 text-left">

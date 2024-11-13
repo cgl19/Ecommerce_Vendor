@@ -11,26 +11,24 @@ use App\Models\Color;
 use App\Models\Shop;
 use App\Models\Attribute;
 use App\Models\AttributeCategory;
-use App\Utility\CategoryUtility;
-
-class SearchController extends Controller
+use App\Utility\CategoryUtility;  
+ 
+class SearchController extends Controller 
 {
     public function index(Request $request, $category_id = null, $brand_id = null)
     {
         $query = $request->keyword;
-        $sort_by = $request->sort_by;
+        $sort_by = $request->sort_by;  
         $min_price = $request->min_price;
         $max_price = $request->max_price;
         $seller_id = $request->seller_id;
-        $attributes = Attribute::all();
+        $attributes = Attribute::all(); 
         $selected_attribute_values = array();
         $colors = Color::all();
         $selected_color = null;
-        $category = [];
-        $categories = [];
-
+        $category = []; 
+        $categories = []; 
         $conditions = [];
-
         if ($brand_id != null) {
             $conditions = array_merge($conditions, ['brand_id' => $brand_id]);
         } elseif ($request->brand != null) {
@@ -158,7 +156,7 @@ class SearchController extends Controller
     public function listingByBrand(Request $request, $brand_slug)
     {
         $brand = Brand::where('slug', $brand_slug)->first();
-        if ($brand != null) {
+        if ($brand != null) { 
             return $this->index($request, null, $brand->id);
         }
         abort(404);
