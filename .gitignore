@@ -3,8 +3,6 @@
 .env.*.php
 .env.php
 /node_modules
-/public/storage
-/public/uploads
 /storage/*.key
 /storage/debugbar
 /vendor
@@ -27,5 +25,4 @@ ecommerce.zip
 install.zip
 /nbproject/private/
 /nbproject
-/public/app-translations
-public/uploads.zip
+
