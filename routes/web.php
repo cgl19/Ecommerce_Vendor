@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AizUploadController;
 use App\Http\Controllers\Auth\LoginController;
@@ -50,7 +49,7 @@ use App\Http\Controllers\WalletController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\SizeChartController;
 
-/*
+/*   
   |--------------------------------------------------------------------------
   | Web Routes
   |--------------------------------------------------------------------------

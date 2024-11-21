@@ -10,7 +10,8 @@
             data-value="removed">
             <a href="{{ get_setting('topbar_banner_link') }}" class="d-block text-reset h-40px h-lg-60px">
                 <!-- For Large device -->
-                <img src="{{ $topbar_banner_asset }}" class="d-none d-xl-block img-fit h-100" alt="{{ translate('topbar_banner') }}">
+                <img src="{{ $topbar_banner_asset }}" class="d-none d-xl-block img-fit h-100"
+                    alt="{{ translate('topbar_banner') }}">
                 <!-- For Medium device -->
                 <img src="{{ $topbar_banner_medium != null ? uploaded_asset($topbar_banner_medium) : $topbar_banner_asset }}"
                     class="d-none d-md-block d-xl-none img-fit h-100" alt="{{ translate('topbar_banner') }}">
@@ -29,7 +30,7 @@
     <div class="top-navbar bg-white z-1035 h-35px h-sm-auto">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col">
+                {{-- <div class="col-lg-6 col">
                     <ul class="list-inline d-flex justify-content-between justify-content-lg-start mb-0">
                         <!-- Language switcher -->
                         @if (get_setting('show_language_switcher') == 'on')
@@ -80,7 +81,7 @@
                         @endif
 
                     </ul>
-                </div>
+                </div> --}}
 
                 <div class="col-6 text-right d-none d-lg-block">
                     <ul class="list-inline mb-0 h-100 d-flex justify-content-end align-items-center">
@@ -229,8 +230,7 @@
                             <li class="list-inline-item ml-3 mr-3 pr-3 pl-0 dropdown">
                                 <a class="dropdown-toggle no-arrow text-secondary fs-12" data-toggle="dropdown"
                                     href="javascript:void(0);" role="button" aria-haspopup="false"
-                                    aria-expanded="false"
-                                    onclick="nonLinkableNotificationRead()">
+                                    aria-expanded="false" onclick="nonLinkableNotificationRead()">
                                     <span class="position-relative d-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14.668" height="16"
                                             viewBox="0 0 14.668 16">
@@ -239,7 +239,8 @@
                                                 transform="translate(-0.999)" fill="#91919b" />
                                         </svg>
                                         @if (Auth::check() && count($user->unreadNotifications) > 0)
-                                            <span class="badge badge-primary badge-inline badge-pill absolute-top-right--10px unread-notification-count">{{ count($user->unreadNotifications) }}</span>
+                                            <span
+                                                class="badge badge-primary badge-inline badge-pill absolute-top-right--10px unread-notification-count">{{ count($user->unreadNotifications) }}</span>
                                         @endif
                                     </span>
                                 </a>
@@ -253,47 +254,68 @@
                                                 @forelse($user->unreadNotifications as $notification)
                                                     @php
                                                         $isLinkable = true;
-                                                        $notificationType = get_notification_type($notification->notification_type_id, 'id');
-                                                        $notifyContent = $notificationType->getTranslation('default_text');
+                                                        $notificationType = get_notification_type(
+                                                            $notification->notification_type_id,
+                                                            'id',
+                                                        );
+                                                        $notifyContent = $notificationType->getTranslation(
+                                                            'default_text',
+                                                        );
                                                         $notificationShowDesign = get_setting('notification_show_type');
-                                                        if($notification->type == 'App\Notifications\customNotification' && $notification->data['link'] == null){
+                                                        if (
+                                                            $notification->type ==
+                                                                'App\Notifications\customNotification' &&
+                                                            $notification->data['link'] == null
+                                                        ) {
                                                             $isLinkable = false;
                                                         }
                                                     @endphp
                                                     <li class="list-group-item">
                                                         <div class="d-flex">
-                                                            @if($notificationShowDesign != 'only_text')
+                                                            @if ($notificationShowDesign != 'only_text')
                                                                 <div class="size-35px mr-2">
                                                                     @php
                                                                         $notifyImageDesign = '';
-                                                                        if($notificationShowDesign == 'design_2'){
+                                                                        if ($notificationShowDesign == 'design_2') {
                                                                             $notifyImageDesign = 'rounded-1';
-                                                                        }
-                                                                        elseif($notificationShowDesign == 'design_3'){
+                                                                        } elseif (
+                                                                            $notificationShowDesign == 'design_3'
+                                                                        ) {
                                                                             $notifyImageDesign = 'rounded-circle';
                                                                         }
                                                                     @endphp
-                                                                    <img
-                                                                        src="{{ uploaded_asset($notificationType->image) }}"
+                                                                    <img src="{{ uploaded_asset($notificationType->image) }}"
                                                                         onerror="this.onerror=null;this.src='{{ static_asset('assets/img/notification.png') }}';"
-                                                                        class="img-fit h-100 {{ $notifyImageDesign }}" >
+                                                                        class="img-fit h-100 {{ $notifyImageDesign }}">
                                                                 </div>
                                                             @endif
                                                             <div>
                                                                 @if ($notification->type == 'App\Notifications\OrderNotification')
                                                                     @php
-                                                                        $orderCode  = $notification->data['order_code'];
-                                                                        $route = route('purchase_history.details', encrypt($notification->data['order_id']));
-                                                                            $orderCode = "<span class='text-blue'>".$orderCode."</span>";
-                                                                        $notifyContent = str_replace('[[order_code]]', $orderCode, $notifyContent);
+                                                                        $orderCode = $notification->data['order_code'];
+                                                                        $route = route(
+                                                                            'purchase_history.details',
+                                                                            encrypt($notification->data['order_id']),
+                                                                        );
+                                                                        $orderCode =
+                                                                            "<span class='text-blue'>" .
+                                                                            $orderCode .
+                                                                            '</span>';
+                                                                        $notifyContent = str_replace(
+                                                                            '[[order_code]]',
+                                                                            $orderCode,
+                                                                            $notifyContent,
+                                                                        );
                                                                     @endphp
                                                                 @endif
 
-                                                                @if($isLinkable = true)
-                                                                    <a href="{{ route('notification.read-and-redirect', encrypt($notification->id)) }}">
+                                                                @if ($isLinkable = true)
+                                                                    <a
+                                                                        href="{{ route('notification.read-and-redirect', encrypt($notification->id)) }}">
                                                                 @endif
-                                                                    <span class="fs-12 text-dark text-truncate-2">{!! $notifyContent !!}</span>
-                                                                @if($isLinkable = true)
+                                                                <span
+                                                                    class="fs-12 text-dark text-truncate-2">{!! $notifyContent !!}</span>
+                                                                @if ($isLinkable = true)
                                                                     </a>
                                                                 @endif
                                                             </div>
@@ -329,11 +351,12 @@
                                 <span
                                     class="size-40px rounded-circle overflow-hidden border border-transparent nav-user-img">
                                     @if ($user->avatar_original != null)
-                                        <img src="{{ $user_avatar }}"
-                                            class="img-fit h-100" alt="{{ translate('avatar') }}"
+                                        <img src="{{ $user_avatar }}" class="img-fit h-100"
+                                            alt="{{ translate('avatar') }}"
                                             onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';">
                                     @else
-                                        <img src="{{ static_asset('assets/img/avatar-place.png') }}" class="image" alt="{{ translate('avatar') }}"
+                                        <img src="{{ static_asset('assets/img/avatar-place.png') }}" class="image"
+                                            alt="{{ translate('avatar') }}"
                                             onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';">
                                     @endif
                                 </span>
@@ -579,33 +602,51 @@
                             </div>
                         </div>
                     </div>
+                   
                     <!-- Header Menus -->
                     @php
-                        $nav_txt_color = ((get_setting('header_nav_menu_text') == 'light') ||  (get_setting('header_nav_menu_text') == null)) ? 'text-white' : 'text-dark';
+                        $nav_txt_color =
+                            get_setting('header_nav_menu_text') == 'light' ||
+                            get_setting('header_nav_menu_text') == null
+                                ? 'text-white'
+                                : 'text-dark';
                     @endphp
                   <div class="ml-xl-4 w-100 overflow-hidden">
-    <div class="d-flex align-items-center justify-content-center justify-content-xl-start h-100">
-        <ul class="list-inline mb-0 pl-0 hor-swipe c-scrollbar-light">
-            @if (get_setting('header_menu_labels') != null)
-                @foreach (json_decode(get_setting('header_menu_labels'), true) as $key => $value)
-                    <li class="list-inline-item mr-0 animate-underline-white position-relative">
-                        <a href="{{ json_decode(get_setting('header_menu_links'), true)[$key] }}"
-                            class="fs-13 px-3 py-3 d-inline-block fw-700 {{ $nav_txt_color }} header_menu_links hov-bg-black-10
-                            @if (url()->current() == json_decode(get_setting('header_menu_links'), true)[$key]) active @endif">
-                            {{ translate($value) }}
-                        </a>
+                    <div class="d-flex align-items-center justify-content-center justify-content-xl-start h-100">
+                        <ul class="list-inline mb-0 pl-0 hor-swipe c-scrollbar-light">
+                            @if (get_setting('header_menu_labels') != null)
+                                @foreach (json_decode(get_setting('header_menu_labels'), true) as $key => $value)
+                                <li class="list-inline-item mr-0 animate-underline-white position-relative {{strtolower($value) == 'software' ? 'SoftwareNaveEle':'' }} {{strtolower($value) == 'hardware' ? 'HardwareNaveEle':'' }}">
+                                    <a href="{{ json_decode(get_setting('header_menu_links'), true)[$key] }}"
+                                            class="fs-13 px-3 py-3 d-inline-block fw-700 {{ $nav_txt_color }} header_menu_links hov-bg-black-10
+                                            @if (url()->current() == json_decode(get_setting('header_menu_links'), true)[$key]) active @endif">
+                                            {{ translate($value) }}
+                                            @if(strtolower($value) == 'software')
+                                            <i class="las la-angle-down text-white has-transition"  style="font-size: 1rem !important"></i>
+                                            @endif
+                                            @if(strtolower($value) == 'hardware')
+                                            <i class="las la-angle-down text-white has-transition"  style="font-size: 1rem !important"></i>
+                                            @endif
+                                        </a>
+                                       
+                
+                                        <!-- Check if the current label is "Shop" -->
+                                        @if (strtolower($value) == 'shop')
+                                            <!-- Include the shop dropdown partial -->
+                                            @include('partials._shop_dropdown')
+                                        @endif
 
-                        <!-- Check if the current label is "Shop" -->
-                        @if (strtolower($value) == 'shop')
-                            <!-- Include the shop dropdown partial -->
-                            @include('partials._shop_dropdown')
-                        @endif
-                    </li>
-                @endforeach
-            @endif
-        </ul>
-    </div>
-</div>
+                                       
+                        
+                                    </li>
+                                @endforeach
+                
+                               
+                            @endif
+                        </ul>
+                    </div>
+                </div>
+                
 
 
                     <!-- Cart -->
@@ -618,18 +659,47 @@
                 </div>
             </div>
             <!-- Categoty Menus -->
+            
             <div class="hover-category-menu position-absolute w-100 top-100 left-0 right-0 z-3 d-none"
                 id="click-category-menu">
                 <div class="container">
                     <div class="d-flex position-relative">
                         <div class="position-static">
-                            @include('frontend.'.get_setting("homepage_select").'.partials.category_menu')
+                            @include('frontend.' . get_setting('homepage_select') . '.partials.category_menu')
                         </div>
                     </div>
                 </div>
             </div>
+ <!-- Software Menus -->
+            <div class="hover-category-menu position-absolute w-100 top-100 left-10 right-0 z-3"
+                id="click-category-menu">
+                <div class="container">
+                    <div class="d-flex position-relative">
+                        <div class="position-static">
+                            @include('partials._software_dropdwon')
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- ----------hardware menu--------- --}}
+            <div class="hover-category-menu position-absolute w-100 top-100 left-10 right-0 z-3"
+                id="click-category-menu">
+                <div class="container">
+                    <div class="d-flex position-relative">
+                        <div class="position-static">
+                            @include('partials._hardware_dropdown')
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           
+
+    
         </div>
     </header>
+   
     <!-- Top Menu Sidebar -->
     <div class="aiz-top-menu-sidebar collapse-sidebar-wrap sidebar-xl sidebar-left d-lg-none z-1035">
         <div class="overlay overlay-fixed dark c-pointer" data-toggle="class-toggle"
@@ -647,7 +717,8 @@
                             <img src="{{ $user_avatar }}" class="img-fit h-100" alt="{{ translate('avatar') }}"
                                 onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';">
                         @else
-                            <img src="{{ static_asset('assets/img/avatar-place.png') }}" class="image" alt="{{ translate('avatar') }}"
+                            <img src="{{ static_asset('assets/img/avatar-place.png') }}" class="image"
+                                alt="{{ translate('avatar') }}"
                                 onerror="this.onerror=null;this.src='{{ static_asset('assets/img/avatar-place.png') }}';">
                         @endif
                     </span>
@@ -774,4 +845,34 @@
                 });
             }
         </script>
+
+
+<script>
+    $(document).ready(function () {
+        $('body').on('click', '.SoftwareNaveEle', function (event) {
+            event.preventDefault();
+    
+            // Close the hardware menu if open
+            $('.hardware-nav-menu').slideUp();
+    
+            // Toggle the visibility of the software navigation menu
+            $('.software-nav-menu').slideToggle();
+        });
+    
+
+
+        
+        $('body').on('click', '.HardwareNaveEle', function (event) {
+            event.preventDefault();
+    
+            // Close the software menu if open
+            $('.software-nav-menu').slideUp();
+    
+            // Toggle the visibility of the hardware navigation menu
+            $('.hardware-nav-menu').slideToggle();
+        });
+    });
+    </script>
+    
+
     @endsection

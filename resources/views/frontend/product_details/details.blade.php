@@ -535,7 +535,7 @@
                     </a>
                 @else
                     <button type="button"
-                        class="btn btn-secondary-base mr-2 add-to-cart fw-600 min-w-150px rounded-0 text-white"
+                        class="btn btn-dark mr-2 add-to-cart fw-600 min-w-150px rounded-0 text-white"
                         @if (Auth::check() || get_Setting('guest_checkout_activation') == 1) onclick="addToCart()" @else onclick="showLoginModal()" @endif>
                         <i class="las la-shopping-bag"></i> {{ translate('Add to cart') }}
                     </button>

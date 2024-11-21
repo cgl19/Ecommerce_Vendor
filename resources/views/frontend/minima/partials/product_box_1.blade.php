@@ -118,7 +118,7 @@
                 <!-- price -->
                <div>
                 <button class="btn">
-                    <a href="{{url('/login')}}" class="btn btn-primary btn-block fs-12 fw-600 mb-2 mb-md-0" style="border-radius: 25px;">Login to view prices</a>
+                    <a href="{{url('/login')}}" class="btn btn-primary btn-block fs-12 fw-600 mb-2 mb-md-0" style="border-radius: 25px;">Price</a>
                 </button>
                </div>
             @endif

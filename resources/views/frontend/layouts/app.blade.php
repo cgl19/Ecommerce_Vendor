@@ -552,6 +552,14 @@
             }
         });
 
+        $(document).on("click", function(event){
+            var $trigger = $("#software-menu-bar");
+            if($trigger !== event.target && !$trigger.has(event.target).length){
+                $("#click-software-menu").slideUp("fast");;
+                //("#category-menu-bar-icon").removeClass('show');
+            }
+        });
+
         function updateNavCart(view,count){
             $('.cart-count').html(count);
             $('#cart_items').html(view);
